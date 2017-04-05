@@ -1,0 +1,4 @@
+package: github.com/souzavitor/go-study
+import:
+- package: github.com/gorilla/mux
+- package: github.com/gorilla/context
