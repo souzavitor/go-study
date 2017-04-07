@@ -1,15 +1,22 @@
 version: '2'
 services:
+  nginx_proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
   web:
     build: .
-    ports:
-      - "8080:8080"
     working_dir: /go/src/github.com/souzavitor/go-study
     volumes:
       - .:/go/src/github.com/souzavitor/go-study
+    environment:
+      - VIRTUAL_HOST=short.loc
     links:
-      - "mongo:mongo"
-      - "redis:redis"
+      - "mongo:mongo.local"
+      - "redis:redis.local"
   mongo:
     image: "mongo:latest"
     volumes:

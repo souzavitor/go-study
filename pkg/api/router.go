@@ -16,6 +16,7 @@ func NewRouter() *mux.Router {
 		handler = adapters.Adapt(
 			route.HandlerFunc,
 			adapters.WithDatabase(),
+			adapters.WithContentTypeJson(),
 			adapters.WithLogger(route.Name),
 		)
 
