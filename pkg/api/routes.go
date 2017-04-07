@@ -24,4 +24,10 @@ var routes = Routes{
 		"/api/v1/",
 		handlers.Index,
 	},
+	Route{
+		"ShortenURL",
+		"POST",
+		"/api/v1/shorten",
+		handlers.Shorten,
+	},
 }
