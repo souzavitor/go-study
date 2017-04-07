@@ -21,7 +21,7 @@ var routes = Routes{
 	Route{
 		"Index",
 		"GET",
-		"/api/v1/",
+		"/api/v1",
 		handlers.Index,
 	},
 	Route{

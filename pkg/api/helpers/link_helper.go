@@ -12,22 +12,28 @@ import (
 
 // CreateShortURL create a new short URL code
 func CreateShortURL(session *mgo.Database) (shortURLCode string) {
-	collection := session.C("urls")
 	var link structs.URL
-
-	collection.Find(nil).Sort("-created_at").One(&link)
-
-	var num int
 	var baseValue string
-	if string(link.ID) == "" {
+	var err error
+	var num int
+
+	collection := session.C("urls")
+
+	err = collection.Find(nil).Sort("-created_at").One(&link)
+
+	if err == mgo.ErrNotFound {
 		num = 0
 	} else {
 		num = toBase10(link.ShortURL, 0)
 		num++
 	}
+
 	baseValue = toBase(num, 0)
-	for collection.Find(bson.M{"short_url": baseValue}).One(&link); string(link.ID) != ""; {
+
+	err = collection.Find(bson.M{"short_url": baseValue}).One(&link)
+	for err != mgo.ErrNotFound {
 		baseValue = toBase(num, 0)
+		err = collection.Find(bson.M{"short_url": baseValue}).One(&link)
 		num++
 	}
 	shortURLCode = baseValue
