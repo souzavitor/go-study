@@ -7,12 +7,12 @@ import (
 )
 
 // WithLogger create adapter to handle to log access
-func WithLogger(inner http.Handler, name string) Adapter {
+func WithLogger(name string) Adapter {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			start := time.Now()
 
-			inner.ServeHTTP(w, r)
+			h.ServeHTTP(w, r)
 
 			log.Printf(
 				"%s\t%s\t%s\t%s",
