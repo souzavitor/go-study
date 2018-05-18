@@ -19,6 +19,12 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
+		"RedirectURL",
+		"GET",
+		"/{shortURL}",
+		handlers.RedirectURL,
+	},
+	Route{
 		"Index",
 		"GET",
 		"/api/v1",
