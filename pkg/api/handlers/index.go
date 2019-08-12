@@ -13,6 +13,7 @@ type indexResponse struct {
 }
 
 // Index execute the main route in our API
+// It shows the version of the API and the available links
 func Index(w http.ResponseWriter, r *http.Request) {
 	options := &indexResponse{
 		Version: "v1",
